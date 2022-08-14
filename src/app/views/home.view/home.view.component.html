@@ -1,0 +1,40 @@
+<div class="table-container">
+  <button mat-icon-button color="primary" (click)="abrirModal(null)">
+    <mat-icon>more</mat-icon>
+  </button>
+  <table mat-table #table [dataSource]="tarefas" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Concluída</th>
+      <td mat-cell *matCellDef="let element"><mat-checkbox class="example-margin"
+        [checked]="element.status"></mat-checkbox>
+</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="desc">
+      <th mat-header-cell *matHeaderCellDef>Descrição</th>
+      <td mat-cell *matCellDef="let element">{{ element.desc }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="editarTarefa(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="deletarTarefa(element.position)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+    <tr mat-row *matRowDef="let row; columns: colunas"></tr>
+  </table>
+</div>
