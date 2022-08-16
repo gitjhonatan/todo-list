@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { TarefaInterface } from 'src/app/views/home.view/home.view.component';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TarefaInterface } from 'src/app/interfaces/TarefaInterface';
+import { TarefaService } from 'src/app/services/TarefaService';
 
 @Component({
   selector: 'app-modal-shared',
   templateUrl: './modal-shared.component.html',
-  styleUrls: ['./modal-shared.component.scss']
+  styleUrls: ['./modal-shared.component.scss'],
+  providers: [TarefaService]
 })
 export class ModalSharedComponent implements OnInit {
   element?: TarefaInterface;
@@ -13,17 +15,29 @@ export class ModalSharedComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: TarefaInterface,
+    public tarefa_service: TarefaService,
     public dialogRef: MatDialogRef<ModalSharedComponent>
-  ) {}
-
+  ) { }
 
   ngOnInit(): void {
     this.editing = false
-
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  criarTarefa(descricao: string): void {
+    const nova_Tarefa =
+    {
+      desc: descricao
+    }
+
+    const tasks = this.tarefa_service.postTarefa(nova_Tarefa)
+    .subscribe((data: TarefaInterface[]) => {
+      console.log(data)
+    })
+    console.log(tasks)
+    console.log(descricao)
+  }
 }

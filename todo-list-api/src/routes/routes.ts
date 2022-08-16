@@ -3,7 +3,9 @@ import TaskController from "../controllers/TaskController";
 
 const routes = Router()
 
-routes.get('/users', TaskController.index)
-routes.post('/task', TaskController.index)
+routes.get('/api/task', TaskController.get)
+routes.post('/api/task', TaskController.post)
+routes.put('/api/task', TaskController.get)
+routes.delete('/api/task', TaskController.delete)
 
 export default routes
