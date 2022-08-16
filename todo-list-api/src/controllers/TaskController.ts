@@ -1,22 +1,33 @@
 import { Request, Response } from "express";
-import User from '../schemas/User';
+import Task from '../schemas/TaskSchema';
 
 class TaskController {
-    public async index(req:Request, res: Response): Promise<Response> {
-        const tasks = await User.create({
-            email: 'jhones',
-            firstName: 'çlkçlk',
-            lastName: 'sdfsdf'
-        })
-        return res.json(tasks)
+  public async index(req: Request, res: Response): Promise<Response> {
+    const tasks = await Task.create({
+      status: true, desc: 'fazer outro backend', subtasks: {}
+    })
+    return res.json(tasks)
+  }
 
-    }
+  public async get(req: Request, res: Response): Promise<Response> {
+    const tasks = await Task.find()
+    return res.json(tasks)
+  }
 
-    public async create(req:Request, res: Response): Promise<Response> {
-        const tasks = [] //await User.create()
-        return res.json(tasks)
-    }
+  public async post(req: Request, res: Response): Promise<Response> {
+    const tasks = await Task.create(req.body)
+    return res.json(tasks)
+  }
 
+  public async put(req: Request, res: Response): Promise<Response> {
+    const tasks = []
+    return res.json(tasks)
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const tasks = await Task.deleteOne({ _id: req.body.id })
+    return res.json(tasks)
+  }
 }
 
 export default new TaskController()
