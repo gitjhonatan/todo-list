@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TarefaInterface } from 'src/app/interfaces/TarefaInterface';
 import { TarefaService } from 'src/app/services/TarefaService';
 
@@ -9,22 +10,21 @@ import { TarefaService } from 'src/app/services/TarefaService';
   styleUrls: ['./modal-shared.component.scss'],
   providers: [TarefaService]
 })
+
+
 export class ModalSharedComponent implements OnInit {
+  @Output() novaTarefaEvento = new EventEmitter<string>();
   element?: TarefaInterface;
   editing?: boolean;
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: TarefaInterface,
     public tarefa_service: TarefaService,
-    public dialogRef: MatDialogRef<ModalSharedComponent>
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.editing = false
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
   criarTarefa(descricao: string): void {
@@ -34,10 +34,11 @@ export class ModalSharedComponent implements OnInit {
     }
 
     const tasks = this.tarefa_service.postTarefa(nova_Tarefa)
-    .subscribe((data: TarefaInterface[]) => {
-      console.log(data)
-    })
-    console.log(tasks)
-    console.log(descricao)
+      .subscribe((data: TarefaInterface[]) => {
+        this.novaTarefaEvento.emit(descricao)
+        this._snackBar.open('Tarefa criada!', 'OK', {
+          panelClass: ['mat-toolbar', 'mat-success']
+        });
+      })
   }
 }

@@ -22,10 +22,10 @@ export class TarefaService {
     return this.http.put<TarefaInterface[]>(this.url, element);
   }
 
-  deleteTarefa(id: string): Observable<TarefaInterface[]> {
+  deleteTarefa(element: TarefaInterface): Observable<TarefaInterface[]> {
     return this.http.delete<TarefaInterface[]>(this.url, {
       body: {
-        id: id
+        id: element._id
       }
     });
   }
