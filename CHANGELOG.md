@@ -1,5 +1,12 @@
 # Alterações do projeto
 
+## v0.3.0
+> **API**
+- A listagem das tarefas agora ordena pela data de criação do _documento_
+
+> **APP**
+- Adicionados feedbacks visuais para as operações
+
 ## v0.2.0
 > **Geral**
 - Criado um _package.json_ na _raiz_ para facilitar a chamada dos serviços.

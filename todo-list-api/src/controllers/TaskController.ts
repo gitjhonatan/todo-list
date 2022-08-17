@@ -10,7 +10,7 @@ class TaskController {
   }
 
   public async get(req: Request, res: Response): Promise<Response> {
-    const tasks = await Task.find()
+    const tasks = await Task.find().sort('-createdAt')
     return res.json(tasks)
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
 import { TarefaInterface } from 'src/app/interfaces/TarefaInterface';
 import { TarefaService } from 'src/app/services/TarefaService';
@@ -20,7 +21,8 @@ export class HomeViewComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public tarefa_service: TarefaService
+    public tarefa_service: TarefaService,
+    private _snackBar: MatSnackBar
   ) {
     this.tarefa_service.getTarefas()
       .subscribe((data: TarefaInterface[]) => {
@@ -40,12 +42,27 @@ export class HomeViewComponent implements OnInit {
     });
   }
 
-  deletarTarefa(id: string): void {
-    this.tarefa_service.deleteTarefa(id)
+  deletarTarefa(element: TarefaInterface): void {
+    this.tarefa_service.deleteTarefa(element)
       .subscribe((data: TarefaInterface[]) => {
+        this.tarefas = this.tarefas.filter((task) => {
+          console.log(task)
+          console.log(element)
+          return task._id !== element._id
+        })
+        this.table?.renderRows()
+        // )
+        this._snackBar.open('Tarefa Excluída!', 'OK', {
+          panelClass: ['mat-toolbar', 'mat-success']
+        });
       })
   }
 
   editarTarefa(element: TarefaInterface): void {
+  }
+
+  renderTarefa(element: any): void {
+    console.log(element)
+    // this.tarefas.push({desc: element})
   }
 }
