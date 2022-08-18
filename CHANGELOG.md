@@ -1,5 +1,9 @@
 # Alterações do projeto
 
+## v0.3.1
+> **APP**
+- A lista de tarefas (tabela) se tornou um componente
+
 ## v0.3.0
 > **API**
 - A listagem das tarefas agora ordena pela data de criação do _documento_

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTable } from '@angular/material/table';
 import { TarefaInterface } from 'src/app/interfaces/TarefaInterface';
 import { TarefaService } from 'src/app/services/TarefaService';
 import { ModalSharedComponent } from 'src/app/shared/modal-shared/modal-shared.component';
@@ -13,9 +12,9 @@ import { ModalSharedComponent } from 'src/app/shared/modal-shared/modal-shared.c
   providers: [TarefaService]
 })
 
+
 export class HomeViewComponent implements OnInit {
-  @ViewChild(MatTable)
-  table?: MatTable<any>;
+  @Output() homeNovaTarefaEvento: EventEmitter<any> = new EventEmitter();
   colunas: string[] = ['status', 'desc', 'actions'];
   tarefas!: TarefaInterface[];
 
@@ -24,45 +23,36 @@ export class HomeViewComponent implements OnInit {
     public tarefa_service: TarefaService,
     private _snackBar: MatSnackBar
   ) {
-    this.tarefa_service.getTarefas()
-      .subscribe((data: TarefaInterface[]) => {
-        this.tarefas = data
-      })
   }
 
   ngOnInit(): void {
   }
 
-  abrirModal(element: TarefaInterface | null): void {
+   abrirModal (element: TarefaInterface | null): void {
     const dialogRef = this.dialog.open(ModalSharedComponent, {
+
       width: '250px',
       data: element === null ? {
         name: null,
       } : { ...element },
     });
-  }
+    this.homeNovaTarefaEvento.emit('fsdf')
 
-  deletarTarefa(element: TarefaInterface): void {
-    this.tarefa_service.deleteTarefa(element)
-      .subscribe((data: TarefaInterface[]) => {
-        this.tarefas = this.tarefas.filter((task) => {
-          console.log(task)
-          console.log(element)
-          return task._id !== element._id
-        })
-        this.table?.renderRows()
-        // )
-        this._snackBar.open('Tarefa Excluída!', 'OK', {
-          panelClass: ['mat-toolbar', 'mat-success']
-        });
-      })
-  }
+    const sub = dialogRef.componentInstance.novaTarefaEvento.subscribe((tarefa) => {
+      console.log(tarefa)
+      console.log(this.homeNovaTarefaEvento)
+      this.homeNovaTarefaEvento.emit(tarefa)
+      // this.tarefas.push(da)
+      // this.table?.renderRows()
 
-  editarTarefa(element: TarefaInterface): void {
+      // do something
+    });
   }
 
   renderTarefa(element: any): void {
     console.log(element)
+    console.log("khp")
     // this.tarefas.push({desc: element})
   }
+
 }

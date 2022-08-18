@@ -4,4 +4,5 @@ export interface TarefaInterface {
   status?: boolean;
   desc: string;
   subtasks?: TarefaInterface | {};
+  createdAt?: string
 }

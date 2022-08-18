@@ -13,7 +13,8 @@ import { TarefaService } from 'src/app/services/TarefaService';
 
 
 export class ModalSharedComponent implements OnInit {
-  @Output() novaTarefaEvento = new EventEmitter<string>();
+  @Output() novaTarefaEvento: EventEmitter<any> = new EventEmitter();
+
   element?: TarefaInterface;
   editing?: boolean;
   constructor(
@@ -32,10 +33,9 @@ export class ModalSharedComponent implements OnInit {
     {
       desc: descricao
     }
-
     const tasks = this.tarefa_service.postTarefa(nova_Tarefa)
       .subscribe((data: TarefaInterface[]) => {
-        this.novaTarefaEvento.emit(descricao)
+        this.novaTarefaEvento.emit(data)
         this._snackBar.open('Tarefa criada!', 'OK', {
           panelClass: ['mat-toolbar', 'mat-success']
         });
