@@ -21,6 +21,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TabelaListaComponent } from './components/tabela-lista/tabela-lista.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeViewComponent,
     HeaderSharedComponent,
     FooterSharedComponent,
-    ModalSharedComponent
+    ModalSharedComponent,
+    TabelaListaComponent
   ],
   imports: [
     BrowserModule,

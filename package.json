@@ -1,6 +1,6 @@
 {
   "name": "todo-list-ts",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "scripts": {
     "dev:api": "cd todo-list-api && npm run dev",
     "dev:app": "cd todo-list-angular && npm run dev"
