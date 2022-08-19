@@ -8,6 +8,8 @@ import * as PostActions from '../../store/actions'
 import { carregandoSelector } from 'src/app/store/selectors';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/interfaces/AppStateInterface';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalSharedComponent } from 'src/app/shared/modal-shared/modal-shared.component';
 
 @Component({
   selector: 'app-tabela-lista',
@@ -17,12 +19,11 @@ import { AppStateInterface } from 'src/app/interfaces/AppStateInterface';
 export class TabelaListaComponent implements OnInit {
 
   table?: MatTable<any>;
-  colunas: string[] = ['status', 'desc', 'actions'];
+  colunas: string[] = ['desc', 'actions'];
   tarefas$: Observable<TarefaInterface[]>;
 
-  constructor(public tarefa_service: TarefaService, private _snackBar: MatSnackBar, private store: Store<AppStateInterface>) {
+  constructor(public tarefa_service: TarefaService, private store: Store<AppStateInterface>, public dialog: MatDialog) {
     this.tarefas$ = this.store.pipe(select(carregandoSelector))
-    // this.store.dispatch(PostActions.getPosts())
   }
 
   ngOnInit(): void {
@@ -46,6 +47,14 @@ export class TabelaListaComponent implements OnInit {
   }
 
   editarTarefa(element: TarefaInterface): void {
+    const dialogRef = this.dialog.open(ModalSharedComponent, {
+      width: '250px',
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.carregarLista()
+    });
   }
 
 

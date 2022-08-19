@@ -16,7 +16,6 @@ export class Effects {
       mergeMap((action) => {
           return this.tarefa_service.getTarefas().pipe(
             map((posts: any) => {
-              console.log(posts)
               return getPostsSuccess({ posts: posts });
             })
           );
