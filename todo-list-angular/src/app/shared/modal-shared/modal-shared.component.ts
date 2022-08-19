@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TarefaInterface } from 'src/app/interfaces/TarefaInterface';
 import { TarefaService } from 'src/app/services/TarefaService';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-modal-shared',
@@ -21,7 +22,7 @@ export class ModalSharedComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: TarefaInterface,
     public tarefa_service: TarefaService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +36,6 @@ export class ModalSharedComponent implements OnInit {
     }
     const tasks = this.tarefa_service.postTarefa(nova_Tarefa)
       .subscribe((data: TarefaInterface[]) => {
-        this.novaTarefaEvento.emit(data)
         this._snackBar.open('Tarefa criada!', 'OK', {
           panelClass: ['mat-toolbar', 'mat-success']
         });

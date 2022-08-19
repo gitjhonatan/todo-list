@@ -1,5 +1,10 @@
 # Alterações do projeto
 
+## v0.4.0
+> **APP**
+- Adição do gerenciamento de estado (ngrx)
+
+
 ## v0.3.1
 > **APP**
 - A lista de tarefas (tabela) se tornou um componente
