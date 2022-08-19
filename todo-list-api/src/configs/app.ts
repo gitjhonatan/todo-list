@@ -12,7 +12,7 @@ class App {
         this.server()
         this.database()
         this.routes()
-        this.listen()
+        return this.listen()
     }
 
     private server(): void {
@@ -32,8 +32,8 @@ class App {
         this.express.use(routes)
     }
 
-    private listen(): void {
-        this.express.listen(process.env.PORT_HTTP || 3000, () => {
+    private listen() {
+        return this.express.listen(process.env.PORT_HTTP || 3000, () => {
             console.log(`Servidor iniciado em http://localhost:${process.env.PORT_HTTP || 3000}`);
         });
     }

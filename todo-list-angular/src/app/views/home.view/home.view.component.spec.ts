@@ -20,4 +20,8 @@ describe('HomeViewComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Tarefas renderizando corretamente', () => {
+    expect(component).toBeTruthy();
+  });
 });

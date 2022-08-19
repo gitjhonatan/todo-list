@@ -10,7 +10,6 @@ export const initiaState: TarefaInterface[] = [{
 export const reducers = createReducer(initiaState,
 
   on(PostsActions.getPostsSuccess, (state, action) => {
-    console.log(action)
     return { ...state, posts: action.posts }
   })
 

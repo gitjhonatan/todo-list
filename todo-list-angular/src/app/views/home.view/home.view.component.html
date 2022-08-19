@@ -1,10 +1,4 @@
-<div class="table-container" (homeNovaTarefaEvento)="renderTarefa($event)">
-  <button
-    mat-fab
-    color="primary"
-    (click)="abrirModal(null)"
-  >
-    <mat-icon>add</mat-icon>
-  </button>
-  <app-tabela-lista style="width: 100%;" (homeNovaTarefaEvento)="renderTarefa($event)"></app-tabela-lista>
+<div class="table-container">
+  <app-botao-nova-tarefa></app-botao-nova-tarefa>
+  <app-tabela-lista></app-tabela-lista>
 </div>

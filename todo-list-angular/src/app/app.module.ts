@@ -29,6 +29,7 @@ import { reducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { Effects } from './store/effects';
 import { TarefaService } from './services/TarefaService';
+import { BotaoNovaTarefaComponent } from './components/botao-nova-tarefa/botao-nova-tarefa.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TarefaService } from './services/TarefaService';
     HeaderSharedComponent,
     FooterSharedComponent,
     ModalSharedComponent,
-    TabelaListaComponent
+    TabelaListaComponent,
+    BotaoNovaTarefaComponent
   ],
   imports: [
     BrowserModule,

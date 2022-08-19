@@ -18,6 +18,7 @@ export class ModalSharedComponent implements OnInit {
 
   element?: TarefaInterface;
   editing?: boolean;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: TarefaInterface,
@@ -26,7 +27,6 @@ export class ModalSharedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.editing = false
   }
 
   criarTarefa(descricao: string): void {
@@ -37,6 +37,15 @@ export class ModalSharedComponent implements OnInit {
     const tasks = this.tarefa_service.postTarefa(nova_Tarefa)
       .subscribe((data: TarefaInterface[]) => {
         this._snackBar.open('Tarefa criada!', 'OK', {
+          panelClass: ['mat-toolbar', 'mat-success']
+        });
+      })
+  }
+
+  editarTarefa(element: TarefaInterface, nova_descricao: string): void {
+    const task = this.tarefa_service.putTarefa({ ...element, desc: nova_descricao })
+      .subscribe((data: TarefaInterface[]) => {
+        this._snackBar.open('Tarefa editada!', 'OK', {
           panelClass: ['mat-toolbar', 'mat-success']
         });
       })

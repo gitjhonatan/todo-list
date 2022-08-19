@@ -20,13 +20,23 @@ class TaskController {
   }
 
   public async put(req: Request, res: Response): Promise<Response> {
-    const tasks = []
-    return res.json(tasks)
+    try {
+      const tasks = await Task.updateOne({_id: req.body._id},req.body)
+      return res.json(tasks)
+    }
+    catch (err) {
+      return res.sendStatus(500)
+    }
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
-    const tasks = await Task.deleteOne({ _id: req.body.id })
-    return res.json(tasks)
+    try {
+      const tasks = await Task.deleteOne({ _id: req.body.id })
+      return res.json(tasks)
+    }
+    catch (err) {
+      return res.sendStatus(500)
+    }
   }
 }
 
