@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TarefaInterface } from 'src/app/interfaces/TarefaInterface';
 import { TarefaService } from 'src/app/services/TarefaService';
 import { ModalSharedComponent } from 'src/app/shared/modal-shared/modal-shared.component';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store'
+import { AppStateInterface } from 'src/app/interfaces/AppStateInterface';
 
 @Component({
   selector: 'app-home.view',
@@ -16,19 +19,18 @@ import { ModalSharedComponent } from 'src/app/shared/modal-shared/modal-shared.c
 export class HomeViewComponent implements OnInit {
   @Output() homeNovaTarefaEvento: EventEmitter<any> = new EventEmitter();
   colunas: string[] = ['status', 'desc', 'actions'];
-  tarefas!: TarefaInterface[];
-
+  tarefas!: any;
   constructor(
     public dialog: MatDialog,
     public tarefa_service: TarefaService,
-    private _snackBar: MatSnackBar
   ) {
+
   }
 
   ngOnInit(): void {
   }
 
-   abrirModal (element: TarefaInterface | null): void {
+  abrirModal(element: TarefaInterface | null): void {
     const dialogRef = this.dialog.open(ModalSharedComponent, {
 
       width: '250px',
@@ -39,13 +41,7 @@ export class HomeViewComponent implements OnInit {
     this.homeNovaTarefaEvento.emit('fsdf')
 
     const sub = dialogRef.componentInstance.novaTarefaEvento.subscribe((tarefa) => {
-      console.log(tarefa)
-      console.log(this.homeNovaTarefaEvento)
-      this.homeNovaTarefaEvento.emit(tarefa)
-      // this.tarefas.push(da)
-      // this.table?.renderRows()
 
-      // do something
     });
   }
 
